@@ -4,7 +4,8 @@ from variaveis import (DADOS, FILA_DE_ESPERA_MAXIMA, IP, PORTA,
                        LARGURA_DADOS, SENHACLIENTESGERAL,
                        RESPOSTACONEXAOACEITA, LOG, TIMEOUT,
                        RESPOSTA_LOGIN_NAO_ENCONTRADO, RESPOSTA_SENHA_INCORRETA,
-                       RESPOSTA_DESSINCRONIZACAO)
+                       RESPOSTA_DESSINCRONIZACAO, RESPOSTA_SOLICITACAO_LOGIN,
+                       RESPOSTA_SOLICITACAO_CADASTRO)
 from creates import CREATE
 import os
 from threading import Thread, Lock
@@ -22,7 +23,6 @@ class Servidor():
         self.servidor.bind((IP, PORTA))
         self.servidor.listen(int(FILA_DE_ESPERA_MAXIMA))
 
-        print("Servidor iniciado")
         self.armazenaLog("Servidor iniciado", (IP, PORTA))
 
         print(f"IP: {IP}")
@@ -32,7 +32,6 @@ class Servidor():
         self.threadcomando.start()
         self.terminal()
         time.sleep(0.1)
-        print("Desligando servidor")
         self.armazenaLog("Servidor desligado", (IP, PORTA))
 
     def comando(self):
@@ -67,6 +66,7 @@ class Servidor():
         os.system("python main.py")
 
     def armazenaLog(self, text, ip: tuple[str, str | int]):
+        print(f"IP {ip[0]} {text}")
         self.log = open(LOG, "+a")
         data = time.localtime()
         linha = f"\n{ip[0]}:{ip[1]} {text} {data.tm_mday}/{data.tm_mon}/\
@@ -103,8 +103,8 @@ class Servidor():
         info: dict[str, str] | None = None
 
         # Procura um login até ser encontrado ou dar timeout
-        if solicitacao == "Login":
-            self.outputCliente("Login", client, ip, lock)
+        if solicitacao == RESPOSTA_SOLICITACAO_LOGIN:
+            self.outputCliente(RESPOSTA_SOLICITACAO_LOGIN, client, ip, lock)
 
             login = self.inputCliente(client, ip, lock)
             if login == "ERROR":
@@ -116,26 +116,32 @@ class Servidor():
                 client.close()
                 return
 
-        elif solicitacao == "Cadastrar":
-            self.cadastrar(client, lock)
+            client.send(pickle.dumps(info))
+            self.armazenaLog("Logado", ip)
 
+        elif solicitacao == RESPOSTA_SOLICITACAO_CADASTRO:
+            self.outputCliente(RESPOSTA_SOLICITACAO_CADASTRO, client, ip, lock)
+            dados = self.inputCliente(client, ip, lock)
+
+            # Função de cadastro
+            resp = self.cadastrar(client, ip, lock, dados)
+
+            if resp == 0:
+                client.close()
+                return
+
+            self.armazenaLog("Cadastro concluído com sucesso!!!", ip)
         else:
             self.dessincronizacaoError(client, ip, lock)
             return
 
-        client.send(pickle.dumps(info))
-        print(f"IP {ip[0]} Logado")
-        self.armazenaLog("Logado", ip)
-
         client.close()
-        print(f"IP {ip[0]} desconectado")
         self.armazenaLog("Desconectado", ip)
 
     def dessincronizacaoError(self, client, ip, lock):
         # Retorna erro por dessincronização e armazena no log
         self.outputCliente("Servidor dessincronizado", client, ip, lock)
         self.armazenaLog("Desconectado por dessincronizacao", ip)
-        print(f"IP {ip[0]} desconectado por dessincronização")
         self.outputCliente(RESPOSTA_DESSINCRONIZACAO, client, ip, lock)
         client.close()
 
@@ -146,13 +152,11 @@ class Servidor():
         try:
             info = client.recv(LARGURA_DADOS).decode()
         except TimeoutError:
-            print(f"IP {ip[0]} timeout")
             self.armazenaLog("Timeout", ip)
             client.close()
 
             return ""
         except OSError:
-            print(f"IP {ip[0]} Erro OS")
             self.armazenaLog("Erro OS no input", ip)
             return "ERROR"
         return info
@@ -162,13 +166,11 @@ class Servidor():
         try:
             client.send(text.encode())
         except TimeoutError:
-            print(f"IP {ip[0]} timeout")
             self.armazenaLog("Timeout", ip)
             client.close()
 
             return 0
         except OSError:
-            print(f"IP {ip[0]} Erro OS")
             self.armazenaLog("Erro OS no output", ip)
             client.close()
 
@@ -194,7 +196,6 @@ class Servidor():
             if dadosUsuario == []:
                 self.outputCliente(
                     RESPOSTA_LOGIN_NAO_ENCONTRADO, cliente, ip, lock)
-                print(f"IP {ip[0]} login não encontrado")
                 self.armazenaLog("Login nao encontrado", ip)
                 return None
             cabecalhos = reader.getCabec("Usuarios")
@@ -207,13 +208,13 @@ class Servidor():
             else:
                 self.outputCliente(
                     RESPOSTA_SENHA_INCORRETA, cliente, ip, lock)
-                print(f"IP {ip[0]} senha incorreta")
                 self.armazenaLog("Senha incorreta", ip)
                 return None
 
-    def cadastrar(self, cliente: socket.socket, lock: Lock):
+    def cadastrar(self, cliente: socket.socket,
+                  ip: tuple[str, str | int], lock: Lock, dados: str) -> int:
 
-        print("Cadastrar")
+        print(dados)
 
 
 if __name__ == "__main__":
