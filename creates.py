@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS Usuarios
  Nome varchar(30) not null,  
  Email varchar(30),  
  Telefone varchar(13),
- IP varchar(12)
+ IP varchar(12),
+ DataHoraUltimoLogin datetime
 );
 
 CREATE TABLE IF NOT EXISTS Contatos

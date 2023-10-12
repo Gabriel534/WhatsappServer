@@ -283,3 +283,289 @@
 127.0.0.1:51206 Cadastro concluído com sucesso!!! 9/10/2023 11:49
 127.0.0.1:51206 Logado 9/10/2023 11:49
 127.0.0.1:51206 Desconectado 9/10/2023 11:49
+127.0.0.1:12345 Servidor iniciado 9/10/2023 14:56
+127.0.0.1:51928 Conectado 9/10/2023 14:56
+127.0.0.1:51928 Cadastro concluído com sucesso!!! 9/10/2023 14:56
+127.0.0.1:51928 Desconectado 9/10/2023 14:56
+127.0.0.1:12345 Servidor iniciado 9/10/2023 14:57
+127.0.0.1:12345 Servidor desligado 9/10/2023 14:57
+127.0.0.1:12345 Servidor iniciado 9/10/2023 14:57
+127.0.0.1:51934 Conectado 9/10/2023 14:57
+127.0.0.1:51934 Cadastro concluído com sucesso!!! 9/10/2023 14:57
+127.0.0.1:51934 Desconectado 9/10/2023 14:57
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:0
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:0
+127.0.0.1:51959 Conectado 9/10/2023 15:0
+127.0.0.1:51959 Cadastro concluído com sucesso!!! 9/10/2023 15:0
+127.0.0.1:51959 Desconectado 9/10/2023 15:0
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:1
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:1
+127.0.0.1:51962 Conectado 9/10/2023 15:1
+127.0.0.1:51962 Cadastro concluído com sucesso!!! 9/10/2023 15:1
+127.0.0.1:51962 Desconectado 9/10/2023 15:1
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:2
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:2
+127.0.0.1:51966 Conectado 9/10/2023 15:2
+127.0.0.1:51966 Cadastro concluído com sucesso!!! 9/10/2023 15:2
+127.0.0.1:51966 Desconectado 9/10/2023 15:2
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:2
+127.0.0.1:51975 Conectado 9/10/2023 15:2
+127.0.0.1:51975 Cadastro concluído com sucesso!!! 9/10/2023 15:2
+127.0.0.1:51975 Desconectado 9/10/2023 15:2
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:2
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:2
+127.0.0.1:51976 Conectado 9/10/2023 15:2
+127.0.0.1:51976 Cadastro concluído com sucesso!!! 9/10/2023 15:2
+127.0.0.1:51976 Desconectado 9/10/2023 15:2
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:17
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:17
+127.0.0.1:52041 Conectado 9/10/2023 15:17
+127.0.0.1:52041 Usuário cadastrado com sucesso 9/10/2023 15:17
+127.0.0.1:52041 Cadastro concluído com sucesso!!! 9/10/2023 15:17
+127.0.0.1:52041 Desconectado 9/10/2023 15:17
+127.0.0.1:52043 Conectado 9/10/2023 15:18
+127.0.0.1:52043 Tentativa de cadastro - Usuario já existe 9/10/2023 15:18
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:22
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:22
+127.0.0.1:52055 Conectado 9/10/2023 15:23
+127.0.0.1:52055 Tentativa de cadastro - Usuario já existe 9/10/2023 15:23
+127.0.0.1:52055 Desconectado 9/10/2023 15:23
+127.0.0.1:52056 Conectado 9/10/2023 15:23
+127.0.0.1:52056 Usuário cadastrado com sucesso 9/10/2023 15:23
+127.0.0.1:52056 Desconectado 9/10/2023 15:23
+127.0.0.1:52058 Conectado 9/10/2023 15:24
+127.0.0.1:52058 Tentativa de cadastro - Usuario já existe 9/10/2023 15:24
+127.0.0.1:52058 Desconectado 9/10/2023 15:24
+127.0.0.1:52061 Conectado 9/10/2023 15:24
+127.0.0.1:52061 Tentativa de cadastro - Usuario já existe 9/10/2023 15:24
+127.0.0.1:52061 Desconectado 9/10/2023 15:24
+127.0.0.1:52062 Conectado 9/10/2023 15:24
+127.0.0.1:52062 Tentativa de cadastro - Usuario já existe 9/10/2023 15:24
+127.0.0.1:52062 Desconectado 9/10/2023 15:24
+127.0.0.1:52105 Conectado 9/10/2023 15:33
+127.0.0.1:52105 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52106 Conectado 9/10/2023 15:33
+127.0.0.1:52106 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52107 Conectado 9/10/2023 15:33
+127.0.0.1:52107 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52108 Conectado 9/10/2023 15:33
+127.0.0.1:52108 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52109 Conectado 9/10/2023 15:33
+127.0.0.1:52109 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52110 Conectado 9/10/2023 15:33
+127.0.0.1:52110 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52111 Conectado 9/10/2023 15:33
+127.0.0.1:52111 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52112 Conectado 9/10/2023 15:33
+127.0.0.1:52112 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52113 Conectado 9/10/2023 15:33
+127.0.0.1:52113 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52114 Conectado 9/10/2023 15:33
+127.0.0.1:52114 Senha incorreta 9/10/2023 15:33
+127.0.0.1:52116 Conectado 9/10/2023 15:33
+127.0.0.1:52116 Login nao encontrado 9/10/2023 15:33
+127.0.0.1:52117 Conectado 9/10/2023 15:33
+127.0.0.1:52117 Login nao encontrado 9/10/2023 15:33
+127.0.0.1:52118 Conectado 9/10/2023 15:33
+127.0.0.1:52118 Login nao encontrado 9/10/2023 15:33
+127.0.0.1:52119 Conectado 9/10/2023 15:33
+127.0.0.1:52119 Login nao encontrado 9/10/2023 15:33
+127.0.0.1:52120 Conectado 9/10/2023 15:33
+127.0.0.1:52120 Logado 9/10/2023 15:33
+127.0.0.1:52120 Desconectado 9/10/2023 15:33
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:45
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:45
+127.0.0.1:12345 Servidor desligado 9/10/2023 15:46
+127.0.0.1:12345 Servidor iniciado 9/10/2023 15:46
+127.0.0.1:52187 Conectado 9/10/2023 15:51
+127.0.0.1:52187 Usuário cadastrado com sucesso 9/10/2023 15:51
+127.0.0.1:52187 Desconectado 9/10/2023 15:51
+127.0.0.1:52189 Conectado 9/10/2023 15:51
+127.0.0.1:52189 Tentativa de cadastro - Usuario já existe 9/10/2023 15:51
+127.0.0.1:52189 Desconectado 9/10/2023 15:51
+127.0.0.1:12345 Servidor iniciado 12/10/2023 10:43
+127.0.0.1:50950 Conectado 12/10/2023 10:44
+127.0.0.1:50950 Usuário cadastrado com sucesso 12/10/2023 10:44
+127.0.0.1:50950 Desconectado 12/10/2023 10:44
+127.0.0.1:50951 Conectado 12/10/2023 10:44
+127.0.0.1:50951 Tentativa de cadastro - Usuario já existe 12/10/2023 10:44
+127.0.0.1:50951 Desconectado 12/10/2023 10:44
+127.0.0.1:50955 Conectado 12/10/2023 10:44
+127.0.0.1:51036 Conectado 12/10/2023 10:54
+127.0.0.1:51040 Conectado 12/10/2023 10:55
+127.0.0.1:51040 Usuário cadastrado com sucesso 12/10/2023 10:55
+127.0.0.1:51040 Desconectado 12/10/2023 10:55
+127.0.0.1:51054 Conectado 12/10/2023 11:0
+127.0.0.1:51071 Conectado 12/10/2023 11:1
+127.0.0.1:51071 Usuário cadastrado com sucesso 12/10/2023 11:1
+127.0.0.1:51071 Desconectado 12/10/2023 11:1
+127.0.0.1:51081 Conectado 12/10/2023 11:4
+127.0.0.1:51084 Conectado 12/10/2023 11:4
+127.0.0.1:51084 Usuário cadastrado com sucesso 12/10/2023 11:4
+127.0.0.1:51084 Desconectado 12/10/2023 11:4
+127.0.0.1:12345 Servidor desligado 12/10/2023 11:11
+127.0.0.1:12345 Servidor iniciado 12/10/2023 12:4
+127.0.0.1:51294 Conectado 12/10/2023 12:4
+127.0.0.1:51300 Conectado 12/10/2023 12:5
+127.0.0.1:51303 Conectado 12/10/2023 12:6
+127.0.0.1:51326 Conectado 12/10/2023 12:7
+127.0.0.1:51348 Conectado 12/10/2023 12:7
+127.0.0.1:51356 Conectado 12/10/2023 12:8
+127.0.0.1:12345 Servidor desligado 12/10/2023 12:13
+127.0.0.1:12345 Servidor iniciado 12/10/2023 12:15
+127.0.0.1:12345 Servidor desligado 12/10/2023 12:15
+127.0.0.1:12345 Servidor iniciado 12/10/2023 12:16
+127.0.0.1:12345 Servidor desligado 12/10/2023 12:16
+127.0.0.1:12345 Servidor iniciado 12/10/2023 12:16
+127.0.0.1:51560 Conectado 12/10/2023 12:34
+127.0.0.1:51559 Conexao negada 12/10/2023 12:34
+127.0.0.1:51560 Desconectado por dessincronizacao 12/10/2023 12:34
+127.0.0.1:51562 Conectado 12/10/2023 12:34
+127.0.0.1:51562 Desconectado por dessincronizacao 12/10/2023 12:34
+127.0.0.1:51561 Conexao negada 12/10/2023 12:34
+127.0.0.1:51567 Conectado 12/10/2023 12:34
+127.0.0.1:51567 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51566 Conexao negada 12/10/2023 12:34
+127.0.0.1:51569 Conectado 12/10/2023 12:34
+127.0.0.1:51569 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51568 Conexao negada 12/10/2023 12:34
+127.0.0.1:51571 Conectado 12/10/2023 12:34
+127.0.0.1:51571 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51570 Conexao negada 12/10/2023 12:34
+127.0.0.1:51573 Conectado 12/10/2023 12:34
+127.0.0.1:51572 Conexao negada 12/10/2023 12:34
+127.0.0.1:51573 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51575 Conectado 12/10/2023 12:34
+127.0.0.1:51575 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51574 Conexao negada 12/10/2023 12:34
+127.0.0.1:51577 Conectado 12/10/2023 12:34
+127.0.0.1:51576 Conexao negada 12/10/2023 12:34
+127.0.0.1:51577 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51582 Conectado 12/10/2023 12:34
+127.0.0.1:51582 Login nao encontrado 12/10/2023 12:34
+127.0.0.1:51581 Conexao negada 12/10/2023 12:34
+127.0.0.1:51584 Conectado 12/10/2023 12:34
+127.0.0.1:51584 Senha incorreta 12/10/2023 12:34
+127.0.0.1:51583 Conexao negada 12/10/2023 12:34
+127.0.0.1:51586 Conectado 12/10/2023 12:34
+127.0.0.1:51586 Logado 12/10/2023 12:34
+127.0.0.1:51585 Conexao negada 12/10/2023 12:34
+127.0.0.1:51586 Desconectado 12/10/2023 12:34
+127.0.0.1:51590 Conectado 12/10/2023 12:35
+127.0.0.1:51590 Desconectado por dessincronizacao 12/10/2023 12:35
+127.0.0.1:51589 Conexao negada 12/10/2023 12:35
+127.0.0.1:51597 Conectado 12/10/2023 12:35
+127.0.0.1:51597 Usuário cadastrado com sucesso 12/10/2023 12:35
+127.0.0.1:51596 Conexao negada 12/10/2023 12:35
+127.0.0.1:51597 Desconectado 12/10/2023 12:35
+127.0.0.1:51599 Conectado 12/10/2023 12:35
+127.0.0.1:51599 Logado 12/10/2023 12:35
+127.0.0.1:51598 Conexao negada 12/10/2023 12:35
+127.0.0.1:51599 Desconectado 12/10/2023 12:35
+127.0.0.1:51615 Conectado 12/10/2023 12:38
+127.0.0.1:51615 Logado 12/10/2023 12:38
+127.0.0.1:51616 Conectado 12/10/2023 12:38
+127.0.0.1:51616 Login nao encontrado 12/10/2023 12:38
+127.0.0.1:51615 Desconectado 12/10/2023 12:38
+127.0.0.1:51617 Conectado 12/10/2023 12:38
+127.0.0.1:51619 Conectado 12/10/2023 12:38
+127.0.0.1:51617 Login nao encontrado 12/10/2023 12:38
+127.0.0.1:51619 Tentativa de cadastro - Usuario já existe 12/10/2023 12:38
+127.0.0.1:51619 Desconectado 12/10/2023 12:38
+127.0.0.1:51618 Conexao negada 12/10/2023 12:38
+127.0.0.1:51624 Conectado 12/10/2023 12:38
+127.0.0.1:51624 Logado 12/10/2023 12:38
+127.0.0.1:51624 Desconectado 12/10/2023 12:38
+127.0.0.1:51625 Conectado 12/10/2023 12:38
+127.0.0.1:51625 Login nao encontrado 12/10/2023 12:38
+127.0.0.1:51626 Conectado 12/10/2023 12:38
+127.0.0.1:51626 Senha incorreta 12/10/2023 12:38
+127.0.0.1:51628 Conectado 12/10/2023 12:38
+127.0.0.1:51628 Tentativa de cadastro - Usuario já existe 12/10/2023 12:38
+127.0.0.1:51628 Desconectado 12/10/2023 12:38
+127.0.0.1:51627 Conexao negada 12/10/2023 12:38
+127.0.0.1:51637 Conectado 12/10/2023 12:40
+127.0.0.1:51638 Conectado 12/10/2023 12:40
+127.0.0.1:51637 Logado 12/10/2023 12:40
+127.0.0.1:51638 Login nao encontrado 12/10/2023 12:40
+127.0.0.1:51637 Desconectado 12/10/2023 12:40
+127.0.0.1:51639 Conectado 12/10/2023 12:40
+127.0.0.1:51639 Senha incorreta 12/10/2023 12:40
+127.0.0.1:51641 Conectado 12/10/2023 12:40
+127.0.0.1:51641 Tentativa de cadastro - Usuario já existe 12/10/2023 12:40
+127.0.0.1:51641 Desconectado 12/10/2023 12:40
+127.0.0.1:51640 Conexao negada 12/10/2023 12:40
+127.0.0.1:12345 Servidor desligado 12/10/2023 12:41
+127.0.0.1:12345 Servidor iniciado 12/10/2023 16:0
+127.0.0.1:52481 Conectado 12/10/2023 16:0
+127.0.0.1:52481 Usuário cadastrado com sucesso 12/10/2023 16:0
+127.0.0.1:52481 Desconectado 12/10/2023 16:0
+127.0.0.1:52482 Conectado 12/10/2023 16:0
+127.0.0.1:52482 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52482 Desconectado 12/10/2023 16:0
+127.0.0.1:52486 Conectado 12/10/2023 16:0
+127.0.0.1:52486 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52486 Desconectado 12/10/2023 16:0
+127.0.0.1:52488 Conectado 12/10/2023 16:0
+127.0.0.1:52488 Usuário cadastrado com sucesso 12/10/2023 16:0
+127.0.0.1:52488 Desconectado 12/10/2023 16:0
+127.0.0.1:52489 Conectado 12/10/2023 16:0
+127.0.0.1:52489 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52489 Desconectado 12/10/2023 16:0
+127.0.0.1:52490 Conectado 12/10/2023 16:0
+127.0.0.1:52490 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52490 Desconectado 12/10/2023 16:0
+127.0.0.1:52491 Conectado 12/10/2023 16:0
+127.0.0.1:52491 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52491 Desconectado 12/10/2023 16:0
+127.0.0.1:52492 Conectado 12/10/2023 16:0
+127.0.0.1:52492 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52492 Desconectado 12/10/2023 16:0
+127.0.0.1:52493 Conectado 12/10/2023 16:0
+127.0.0.1:52493 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52493 Desconectado 12/10/2023 16:0
+127.0.0.1:52494 Conectado 12/10/2023 16:0
+127.0.0.1:52494 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52494 Desconectado 12/10/2023 16:0
+127.0.0.1:52495 Conectado 12/10/2023 16:0
+127.0.0.1:52495 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52495 Desconectado 12/10/2023 16:0
+127.0.0.1:52496 Conectado 12/10/2023 16:0
+127.0.0.1:52496 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52496 Desconectado 12/10/2023 16:0
+127.0.0.1:52497 Conectado 12/10/2023 16:0
+127.0.0.1:52497 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52497 Desconectado 12/10/2023 16:0
+127.0.0.1:52498 Conectado 12/10/2023 16:0
+127.0.0.1:52498 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52498 Desconectado 12/10/2023 16:0
+127.0.0.1:52499 Conectado 12/10/2023 16:0
+127.0.0.1:52499 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52499 Desconectado 12/10/2023 16:0
+127.0.0.1:52500 Conectado 12/10/2023 16:0
+127.0.0.1:52500 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52500 Desconectado 12/10/2023 16:0
+127.0.0.1:52501 Conectado 12/10/2023 16:0
+127.0.0.1:52501 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52501 Desconectado 12/10/2023 16:0
+127.0.0.1:52502 Conectado 12/10/2023 16:0
+127.0.0.1:52502 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52502 Desconectado 12/10/2023 16:0
+127.0.0.1:52503 Conectado 12/10/2023 16:0
+127.0.0.1:52503 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52503 Desconectado 12/10/2023 16:0
+127.0.0.1:52504 Conectado 12/10/2023 16:0
+127.0.0.1:52504 Tentativa de cadastro - Usuario já existe 12/10/2023 16:0
+127.0.0.1:52504 Desconectado 12/10/2023 16:0
+127.0.0.1:12345 Servidor iniciado 12/10/2023 16:10
+127.0.0.1:52554 Conectado 12/10/2023 16:11
+127.0.0.1:52554 Usuário cadastrado com sucesso 12/10/2023 16:11
+127.0.0.1:52554 Desconectado 12/10/2023 16:11
+127.0.0.1:52557 Conectado 12/10/2023 16:11
+127.0.0.1:52557 Logado 12/10/2023 16:11
+127.0.0.1:52557 Desconectado 12/10/2023 16:11
+127.0.0.1:12345 Servidor desligado 12/10/2023 16:23
+127.0.0.1:12345 Servidor iniciado 12/10/2023 16:23
+127.0.0.1:52635 Conectado 12/10/2023 16:24
+127.0.0.1:52635 Logado 12/10/2023 16:24
+127.0.0.1:52635 Desconectado 12/10/2023 16:24

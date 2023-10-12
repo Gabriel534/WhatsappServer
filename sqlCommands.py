@@ -67,10 +67,11 @@ class SqlReader():
 
         return itens
 
-    def alterInfo(self, table: str, id: int, column: str, value) -> None:
+    def alterInfo(self, table: str, id: int, column: str, value: str) -> None:
         """
         Altera um valor de uma célula da tabela SQL escolhida pelo coluna e id 
         fornecidos.
+        value: valor que deseja usar no lugar especificado
         """
         assert hasattr(self, "cursor"), "Favor inicializar a classe com \
  with para utilizar este comando"
