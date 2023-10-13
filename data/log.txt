@@ -676,3 +676,4 @@
 127.0.0.1:54648 Conectado 12/10/2023 21:49
 127.0.0.1:54648 Usuário cadastrado com sucesso 12/10/2023 21:49
 127.0.0.1:54648 Desconectado 12/10/2023 21:49
+127.0.0.1:12345 Servidor desligado 12/10/2023 22:17
