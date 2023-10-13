@@ -12,6 +12,7 @@ from creates import CREATE
 import os
 from threading import Thread, Lock
 import time
+import datetime
 import re
 import pickle
 
@@ -132,9 +133,9 @@ class Servidor():
 
             dados_filtrados: list = re.findall(r'\"([\w\W]+?)\"', dados)
 
-            # Se houver exatamente 5 dados, o servidor continua com o cadastro,
+            # Se houver exatamente 4 dados, o servidor continua com o cadastro,
             # evitando o recebimento de campos vazios
-            if len(dados_filtrados) == 5:
+            if len(dados_filtrados) == 4:
                 # Função de cadastro
                 self.cadastrar(client, ip, lock, dados_filtrados)
             else:
@@ -203,7 +204,7 @@ class Servidor():
         with SqlReader(DADOS, CREATE) as reader:
             if usuario != []:
                 dadosUsuario = reader.getInfo(
-                    "Usuarios", key=["Login", usuario[0][0]])
+                    "Usuarios", key=["Email", usuario[0][0]])
             else:
                 return None
 
@@ -212,7 +213,7 @@ class Servidor():
             if dadosUsuario == []:
                 self.outputCliente(
                     RESPOSTA_LOGIN_NAO_ENCONTRADO, cliente, ip, lock)
-                self.armazenaLog("Login nao encontrado", ip)
+                self.armazenaLog("Email nao encontrado", ip)
                 return None
             cabecalhos = reader.getCabec("Usuarios")
 
@@ -225,7 +226,8 @@ class Servidor():
             # recebida, ele não fornecerá as informações de login
             # Caso contrário, ele responderá com os dados de usuário
             if info["Senha"] == usuario[0][1]:
-                self.registrarIp(info["Login"], info["Id"], ip)
+                self.registrarIp(info["Id"], ip)
+                self.registrarHorario(info["Id"])
                 return info
             else:
                 self.outputCliente(
@@ -233,9 +235,22 @@ class Servidor():
                 self.armazenaLog("Senha incorreta", ip)
                 return None
 
-    def registrarIp(self, login: str, idUsuario: int, ip: tuple[str, str | int]):
+    def registrarIp(self, idUsuario: int, ip: tuple[str, str | int]):
+        """
+        Registra o ip no login correspondente
+        """
         with SqlReader(DADOS, CREATE) as reader:
             reader.alterInfo("Usuarios", idUsuario, "IP", ip[0])
+
+    def registrarHorario(self, idUsuario: int):
+        """
+        Registra o horário do último login no banco de dados
+        """
+        datahora = datetime.datetime.now()
+
+        with SqlReader(DADOS, CREATE) as reader:
+            reader.alterInfo("Usuarios", idUsuario,
+                             "DataHoraUltimoLogin", str(datahora))
 
     def cadastrar(self, cliente: socket.socket,
                   ip: tuple[str, str | int], lock: Lock, dados: list) -> int:
@@ -243,11 +258,11 @@ class Servidor():
         Pega os valores recebidos e filtrados, e, caso não exista outro login 
         igual, ele cadastra o novo usuário
         Exemplo da variável dados: f"\"{nome}\" \"{telefone}\" \"{email}\" 
-        \"{login}\" \"{senha}\""
+        \"{senha}\""
         """
 
         with SqlReader(DADOS, CREATE) as reader:
-            dado = reader.getInfo("Usuarios", key=["Login", dados[3]])
+            dado = reader.getInfo("Usuarios", key=["Email", dados[2]])
 
             # Se o usuário já existir, ele retorna um erro
             if dado != []:
@@ -258,8 +273,8 @@ class Servidor():
                 return 0
 
             reader.addInfo(
-                "Usuarios", Login=dados[3], Senha=dados[4], Email=dados[2],
-                Telefone=dados[1], Nome=dados[0])
+                "Usuarios", Nome=dados[0], Telefone=dados[1], Email=dados[2],
+                Senha=dados[3])
             self.armazenaLog("Usuário cadastrado com sucesso", ip)
             self.outputCliente(
                 RESPOSTA_CADASTRO_BEM_SUCEDIDO, cliente, ip, lock)
