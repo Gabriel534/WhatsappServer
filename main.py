@@ -261,6 +261,8 @@ class Servidor():
         \"{senha}\""
         """
 
+        self.validaDados
+
         with SqlReader(DADOS, CREATE) as reader:
             dado = reader.getInfo("Usuarios", key=["Email", dados[2]])
 
@@ -280,6 +282,13 @@ class Servidor():
                 RESPOSTA_CADASTRO_BEM_SUCEDIDO, cliente, ip, lock)
             print(dados)
             return 1
+
+    def validaDados(self, dados: list) -> bool:
+        """
+        Valida os dados recebidos pelo cliente
+        Caso forem válidos, retorna True
+        Caso contrário retorna false
+        """
 
 
 if __name__ == "__main__":
