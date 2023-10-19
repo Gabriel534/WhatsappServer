@@ -7,7 +7,13 @@ from variaveis import (DADOS, FILA_DE_ESPERA_MAXIMA, IP, PORTA,
                        RESPOSTA_DESSINCRONIZACAO, RESPOSTA_SOLICITACAO_LOGIN,
                        RESPOSTA_SOLICITACAO_CADASTRO,
                        RESPOSTA_USUARIO_JA_CADASTRADO,
-                       RESPOSTA_CADASTRO_BEM_SUCEDIDO, MAIN)
+                       RESPOSTA_CADASTRO_BEM_SUCEDIDO, MAIN,
+                       RESPOSTA_CADASTRO_INVALIDO,
+                       RESPOSTA_SOLICITACAO_NOVO_CONTATO,
+                       RESPOSTA_CONTATO_INVALIDO,
+                       RESPOSTA_CONTATO_JA_EXISTENTE,
+                       RESPOSTA_CONTATO_NAO_EXISTE,
+                       RESPOSTA_CADASTRO_CONTATO_REALIZADO)
 from creates import CREATE
 import os
 from threading import Thread, Lock
@@ -21,6 +27,10 @@ class Servidor():
     def __init__(self):
         self.boolean = True
         self.clientes: dict[str, Thread] = {}
+        self.expressaoValidaEmail = re.compile(
+            r"""^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$""")
+        self.expressaoValidaSenha = re.compile(
+            r'(?=.*[}{,.^?~%=+\-_\/*\-+.\|])(?=.*[a-zA-Z])(?=.*[0-9]).{8,}')
 
         self.servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.servidor.bind((IP, PORTA))
@@ -90,7 +100,6 @@ class Servidor():
             print(f"Conexão negada\nIP {ip[0]} com senha geral incorreta")
             self.armazenaLog("Conexao negada", ip)
             client.close()
-
             return
 
         # Retorna ao cliente informando que foi autenticado com sucesso
@@ -103,44 +112,16 @@ class Servidor():
 
         solicitacao = self.inputCliente(client, ip, lock)
 
-        info: dict[str, str] | None = None
-
         # Procura um login até ser encontrado ou dar timeout
         if solicitacao == RESPOSTA_SOLICITACAO_LOGIN:
-            self.outputCliente(RESPOSTA_SOLICITACAO_LOGIN, client, ip, lock)
+            self.loginUsuario(client, ip, lock)
 
-            login = self.inputCliente(client, ip, lock)
-            if login == "ERROR":
-                client.close()
-                return
-            info = self.login(login, client, ip, lock)
-
-            if info is None:
-                client.close()
-                return
-
-            client.send(pickle.dumps(info))
-            self.armazenaLog("Logado", ip)
-
+        # Faz o cadastro de um novo usuário
         elif solicitacao == RESPOSTA_SOLICITACAO_CADASTRO:
-            self.outputCliente(RESPOSTA_SOLICITACAO_CADASTRO, client, ip, lock)
+            self.cadastrarUsuario(client, ip, lock)
 
-            # A string recebida é filtrada e transforma suas informações em
-            # uma lista. Ex da string: f"\"{nome}\" \"{telefone}\" \"{email}\"
-            #  \"{login}\" \"{senha}\""
-
-            dados = self.inputCliente(client, ip, lock)
-
-            dados_filtrados: list = re.findall(r'\"([\w\W]+?)\"', dados)
-
-            # Se houver exatamente 4 dados, o servidor continua com o cadastro,
-            # evitando o recebimento de campos vazios
-            if len(dados_filtrados) == 4:
-                # Função de cadastro
-                self.cadastrar(client, ip, lock, dados_filtrados)
-            else:
-                self.dessincronizacaoError(client, ip, lock)
-                return
+        elif solicitacao == RESPOSTA_SOLICITACAO_NOVO_CONTATO:
+            self.cadastrarContato(client, ip, lock)
 
         else:
             self.dessincronizacaoError(client, ip, lock)
@@ -152,8 +133,7 @@ class Servidor():
     def dessincronizacaoError(self, client, ip, lock):
         # Retorna erro por dessincronização e armazena no log
         self.outputCliente(RESPOSTA_DESSINCRONIZACAO, client, ip, lock)
-        self.armazenaLog("Desconectado por dessincronizacao", ip)
-        client.close()
+        self.armazenaLog("Erro de dessincronização", ip)
 
     def inputCliente(self, client: socket.socket,
                      ip: tuple[str, str | int], lock: Lock) -> str:
@@ -190,11 +170,19 @@ class Servidor():
             return 0
         return 1
 
-    def login(self, login: str, cliente: socket.socket,
-              ip: tuple[str, str | int], lock: Lock) -> dict[str, str] | None:
+    def loginUsuario(self, cliente: socket.socket,
+                     ip: tuple[str, str | int], lock: Lock) -> None:
         # Verifica se o usuário existe e resgata as informações do mesmo,
         # devolvendo em um dicionário, ou retorna None quando não for
         # encontrado
+
+        self.outputCliente(RESPOSTA_SOLICITACAO_LOGIN, cliente, ip, lock)
+
+        login = self.inputCliente(cliente, ip, lock)
+
+        if login == "ERROR":
+            self.armazenaLog("Erro de recebimento de dados do cliente", ip)
+            return
 
         # Colocar os lock mais tarde-------------------------------------------------------------------------------------
 
@@ -206,7 +194,7 @@ class Servidor():
                 dadosUsuario = reader.getInfo(
                     "Usuarios", key=["Email", usuario[0][0]])
             else:
-                return None
+                return
 
             # Se não encontrar o login, ele responde ao cliente que o login não
             # foi encontrado
@@ -214,7 +202,7 @@ class Servidor():
                 self.outputCliente(
                     RESPOSTA_LOGIN_NAO_ENCONTRADO, cliente, ip, lock)
                 self.armazenaLog("Email nao encontrado", ip)
-                return None
+                return
             cabecalhos = reader.getCabec("Usuarios")
 
             # Organiza os dados recebidos do banco de dados em um dicionário
@@ -228,12 +216,15 @@ class Servidor():
             if info["Senha"] == usuario[0][1]:
                 self.registrarIp(info["Id"], ip)
                 self.registrarHorario(info["Id"])
-                return info
+
+                cliente.send(pickle.dumps(info))
+                self.armazenaLog("Logado", ip)
+                return
             else:
                 self.outputCliente(
                     RESPOSTA_SENHA_INCORRETA, cliente, ip, lock)
                 self.armazenaLog("Senha incorreta", ip)
-                return None
+                return
 
     def registrarIp(self, idUsuario: int, ip: tuple[str, str | int]):
         """
@@ -252,8 +243,8 @@ class Servidor():
             reader.alterInfo("Usuarios", idUsuario,
                              "DataHoraUltimoLogin", str(datahora))
 
-    def cadastrar(self, cliente: socket.socket,
-                  ip: tuple[str, str | int], lock: Lock, dados: list) -> int:
+    def cadastrarUsuario(self, cliente: socket.socket,
+                         ip: tuple[str, str | int], lock: Lock) -> None:
         """
         Pega os valores recebidos e filtrados, e, caso não exista outro login 
         igual, ele cadastra o novo usuário
@@ -261,7 +252,25 @@ class Servidor():
         \"{senha}\""
         """
 
-        self.validaDados
+        self.outputCliente(RESPOSTA_SOLICITACAO_CADASTRO, cliente, ip, lock)
+
+        # A string recebida é filtrada e transforma suas informações em
+        # uma lista.
+
+        dadosRecebidos = self.inputCliente(cliente, ip, lock)
+
+        if dadosRecebidos == "ERROR":
+            self.armazenaLog("Erro de recebimento de dados do cliente", ip)
+            return
+
+        dados: list = re.findall(r'\"([\w\W]+?)\"', dadosRecebidos)
+
+        # Verifica se os dados são válidos
+        if not self.validaDados(dados):
+            self.armazenaLog("Tentativa de cadastro - Dados inválidos", ip)
+            self.outputCliente(
+                RESPOSTA_CADASTRO_INVALIDO, cliente, ip, lock)
+            return
 
         with SqlReader(DADOS, CREATE) as reader:
             dado = reader.getInfo("Usuarios", key=["Email", dados[2]])
@@ -272,7 +281,7 @@ class Servidor():
                     "Tentativa de cadastro - Usuario já existe", ip)
                 self.outputCliente(
                     RESPOSTA_USUARIO_JA_CADASTRADO, cliente, ip, lock)
-                return 0
+                return
 
             reader.addInfo(
                 "Usuarios", Nome=dados[0], Telefone=dados[1], Email=dados[2],
@@ -281,14 +290,74 @@ class Servidor():
             self.outputCliente(
                 RESPOSTA_CADASTRO_BEM_SUCEDIDO, cliente, ip, lock)
             print(dados)
-            return 1
+            return
 
-    def validaDados(self, dados: list) -> bool:
+    def validaDados(self, dados: list[str]) -> bool:
         """
         Valida os dados recebidos pelo cliente
         Caso forem válidos, retorna True
         Caso contrário retorna false
         """
+
+        # Se houver exatamente 4 dados, o servidor continua com o cadastro,
+        # evitando o recebimento de campos vazios
+        if not (len(dados) == 4):
+            return False
+
+        # Verifica se o email é valido
+        email = re.findall(self.expressaoValidaEmail, dados[2])
+        if email == [] or len(email) != 1:
+            return False
+
+        """
+        Verifica se a senha é valida
+        Requisitos de senha:
+        - Conter no mínimo oito caracteres;
+
+        - Obedecer três dos quatro requisitos: 
+            1- letras maiúsculas (A-Z); 
+            2- letras minúsculas (a-z); 
+            3- números; 
+            4- caracteres não alfabéticos ($, &, %, @).
+        """
+        requisitos = re.findall(self.expressaoValidaSenha, dados[3])
+        if requisitos == []:
+            return False
+
+        return True
+
+    def cadastrarContato(self, cliente, ip, lock):
+        """
+        Cadastra um contato relacionando com o cliente
+        """
+        self.outputCliente(
+            RESPOSTA_SOLICITACAO_NOVO_CONTATO, cliente, ip, lock)
+
+        # Recebe o apelido e o email do contato no formato
+        # f"\"{nome}\" \"{email}\""
+
+        dadosRecebidos = self.inputCliente(cliente, ip, lock)
+
+        # filtra os dados no formato [nome, email]
+        expressaoFiltraCadastroContato = re.compile(r'\"([\w\W]+?)\"')
+        dadosRecebidosFiltrados = re.findall(
+            expressaoFiltraCadastroContato, dadosRecebidos)
+
+        if len(dadosRecebidosFiltrados) != 2:
+            self.outputCliente(RESPOSTA_CONTATO_INVALIDO, cliente, ip, lock)
+            self.armazenaLog("Armazenamento de contato - dados inválidos", ip)
+            return
+
+        with SqlReader(DADOS, CREATE) as reader:
+            if reader.getInfo("Usuarios", key=[
+                    "email", dadosRecebidosFiltrados[1]]) == []:
+                self.outputCliente(
+                    RESPOSTA_CONTATO_NAO_EXISTE, cliente, ip, lock)
+                self.armazenaLog(
+                    "Armazenamento de contato - Contato não existe", ip)
+                return
+            # if reader.getInfo("Contatos", key=["Contato", ])
+            # Terminar Função=====================================================
 
 
 if __name__ == "__main__":
