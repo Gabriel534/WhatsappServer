@@ -12,9 +12,10 @@ CREATE TABLE IF NOT EXISTS Usuarios
 
 CREATE TABLE IF NOT EXISTS Contatos
 (
-Id integer PRIMARY KEY,
-Email varchar(30) not null,
-Nome varchar(30) not null
+Id integer PRIMARY KEY AUTOINCREMENT,
+EmailUsuario varchar(30) not null,
+EmailContato varchar(30) not null,
+NomeContato varchar(30) not null
 );
 
 CREATE TABLE IF NOT EXISTS Conversas
