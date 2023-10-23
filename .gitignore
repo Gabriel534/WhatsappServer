@@ -1,0 +1,4 @@
+.\venv
+
+# ignore all logs
+*.log

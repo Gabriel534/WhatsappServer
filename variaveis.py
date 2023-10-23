@@ -11,7 +11,7 @@ FILA_DE_ESPERA_MAXIMA = 200
 MAIN = Path(__file__).parent.resolve()
 DATA = MAIN / "data"
 DADOS = DATA / "dados.sqlite3"
-LOG = DATA / "log.txt"
+LOG = DATA / "log.log"
 
 # Variáveis comuns com o cliente
 IP = "127.0.0.1"  # socket.gethostbyname(socket.gethostname())
