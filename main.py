@@ -16,7 +16,8 @@ from variaveis import (DADOS, FILA_DE_ESPERA_MAXIMA, IP, PORTA,
                        RESPOSTA_CADASTRO_CONTATO_REALIZADO,
                        EXPRESSAO_REGULAR_VALIDA_EMAIL,
                        EXPRESSAO_REGULAR_VALIDA_SENHA,
-                       RESPOSTA_CREDENCIAIS_INVALIDAS)
+                       RESPOSTA_CREDENCIAIS_INVALIDAS,
+                       RESPOSTA_RESGATAR_CONTATOS)
 from creates import CREATE
 import os
 from threading import Thread, Lock
@@ -122,6 +123,8 @@ class Servidor():
         elif solicitacao == RESPOSTA_SOLICITACAO_NOVO_CONTATO:
             self.cadastrarContato(client, ip, lock)
 
+        elif solicitacao == RESPOSTA_RESGATAR_CONTATOS:
+            self.resgatarContatos(client, ip, lock)
         else:
             self.dessincronizacaoError(client, ip, lock)
             return
@@ -359,7 +362,8 @@ class Servidor():
 
         # Verifica se os dados estão no tamanho certo
         if len(dadosRecebidosFiltrados) != 4 or dadosRecebidosFiltrados == []:
-            self.outputCliente(RESPOSTA_CONTATO_INVALIDO, cliente, ip, lock)
+            self.outputCliente(
+                RESPOSTA_CREDENCIAIS_INVALIDAS, cliente, ip, lock)
             self.armazenaLog("Armazenamento de contato - dados inválidos", ip)
             return
 
@@ -399,8 +403,8 @@ inválidos", ip)
                     self.outputCliente(
                         RESPOSTA_CONTATO_JA_EXISTENTE, cliente, ip, lock)
                     self.armazenaLog(
-                        "Armazenamento de contato - Contato já cadastrado no \
-usuário", ip)
+                        "Armazenamento de contato - Contato já cadastrado \
+anteriormente no usuário", ip)
                     return
 
             reader.addInfo("Contatos", EmailUsuario=dadosUsuario["Email"],
@@ -412,6 +416,56 @@ usuário", ip)
             self.armazenaLog(
                 "Armazenamento de contato - Contato cadastrado com sucesso",
                 ip)
+
+    def resgatarContatos(self, cliente, ip, lock):
+        # Faz conexão com o cliente
+        self.outputCliente(RESPOSTA_RESGATAR_CONTATOS, cliente, ip, lock)
+
+        # Recebe as credenciais de login no formato "\"{login}\" \"{senha}\""
+        dadosLogin = self.inputCliente(cliente, ip, lock)
+        dadosFiltrados = re.findall(r'\"([\w\W]+?)\"', dadosLogin)
+
+        # Verifica se as informações recebidas são válidas
+        if dadosFiltrados == [] or len(dadosFiltrados) != 2:
+            self.outputCliente(
+                RESPOSTA_CREDENCIAIS_INVALIDAS, cliente, ip, lock)
+            self.armazenaLog("Resgate de contatos - credenciais de login \
+inválidos", ip)
+
+        # Verifica se as credenciais do usuário são validas
+        dadosUsuario = self.logar(cliente, ip, lock, dadosFiltrados[0],
+                                  dadosFiltrados[1])
+
+        # Caso o usuario não exista, retorna ao usuário o erro
+        if not isinstance(dadosUsuario, dict):
+            self.outputCliente(
+                RESPOSTA_CREDENCIAIS_INVALIDAS, cliente, ip, lock)
+            self.armazenaLog("Armazenamento de contato - credenciais de login \
+inválidos", ip)
+            return
+
+        with SqlReader(DADOS, CREATE) as reader:
+            dadosContatos: list[dict] = []
+
+            # Recebe os contatos em forma de lista:
+            # [[id, emailUsuario, EmailContato, Nome(apelido)]...]
+            dadosContatosJaCadastrados = reader.getInfo("Contatos",
+                                                        key=["EmailUsuario",
+                                                             dadosFiltrados[0]])
+
+            # Recebe os cabeçalhos
+            cabecalhos = reader.getCabec("Contatos")
+
+            for i in dadosContatosJaCadastrados:
+                # [id, emailUsuario, EmailContato, Nome(apelido)]
+                dadosContatos.append({})
+
+                # Cria um dicionário inserindo o cabeçãlho
+                for a in range(len(cabecalhos)):
+                    dadosContatos[-1][cabecalhos[a][1]] = i[a]
+
+            cliente.send(pickle.dumps(dadosContatos))
+            self.armazenaLog("Dados de contatos fornecidos ao usuaário", ip)
 
 
 if __name__ == "__main__":

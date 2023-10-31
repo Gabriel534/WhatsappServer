@@ -40,3 +40,4 @@ EXPRESSAO_REGULAR_VALIDA_EMAIL = re.compile(
 EXPRESSAO_REGULAR_VALIDA_SENHA = re.compile(
     r'(?=.*[}{,.^?~%=!@#$+\-_\/*\-+.\|])(?=.*[a-zA-Z])(?=.*[0-9]).{8,}')
 RESPOSTA_CREDENCIAIS_INVALIDAS = "jsdnadsa"
+RESPOSTA_RESGATAR_CONTATOS = "juisdhbi"
