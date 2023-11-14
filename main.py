@@ -307,7 +307,6 @@ class Servidor():
             self.armazenaLog("Usuário cadastrado com sucesso", ip)
             self.outputCliente(
                 RESPOSTA_CADASTRO_BEM_SUCEDIDO, cliente, ip, lock)
-            print(dados)
             return
 
     def validaDados(self, dados: list[str]) -> bool:
@@ -370,7 +369,6 @@ class Servidor():
         # Verifica se as credenciais do usuário são validas
         dadosUsuario = self.logar(cliente, ip, lock, dadosRecebidosFiltrados[2],
                                   dadosRecebidosFiltrados[3])
-        print(dadosUsuario)
         if not isinstance(dadosUsuario, dict):
             self.outputCliente(
                 RESPOSTA_CREDENCIAIS_INVALIDAS, cliente, ip, lock)
@@ -397,7 +395,6 @@ inválidos", ip)
             dadosContatosJaCadastrados = reader.getInfo("Contatos",
                                                         key=["EmailUsuario",
                                                              dadosRecebidosFiltrados[2]])
-            print(dadosContatosJaCadastrados)
             for i in dadosContatosJaCadastrados:
                 if i[2] == dadosRecebidosFiltrados[1]:
                     self.outputCliente(
@@ -465,7 +462,7 @@ inválidos", ip)
                     dadosContatos[-1][cabecalhos[a][1]] = i[a]
 
             cliente.send(pickle.dumps(dadosContatos))
-            self.armazenaLog("Dados de contatos fornecidos ao usuaário", ip)
+            self.armazenaLog("Dados de contatos fornecidos ao usuário", ip)
 
 
 if __name__ == "__main__":
